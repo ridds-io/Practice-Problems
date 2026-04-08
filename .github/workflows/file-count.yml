@@ -1,0 +1,22 @@
+name: Update File Count
+on:
+  push:
+    branches: [main]
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Count Files
+        run: |
+          # Count all files, excluding .github and .git
+          FILE_COUNT=$(find . -not -path '*/.*' | wc -l)
+          sed -i "s/<!-- FILE_COUNT_START -->.*<!-- FILE_COUNT_END -->/<!-- FILE_COUNT_START -->$FILE_COUNT<!-- FILE_COUNT_END -->/g" README.md
+      - name: Commit and Push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m "Update file count" README.md || exit 0
+          git push
