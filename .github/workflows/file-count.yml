@@ -18,18 +18,21 @@ jobs:
       
       - name: Calculate and Update
         run: |
-          # 1. Calculate Total (Excluding README, .github, and hidden files)
+          # Force the runner to update its view of the files
+          git update-index --refresh || true 
+          
+          # 1. Total Count (Adding -c to count all files in the directory)
           TOTAL=$(git ls-files | grep -v -e "README.md" -e ".github/" -e "^\." | wc -l)
           sed -i "s/<!-- TOTAL -->.*<!-- TOTAL_END -->/<!-- TOTAL -->$TOTAL<!-- TOTAL_END -->/" README.md
 
-          # 2. List of topics (Folder names)
+          # 2. List of topics
           TOPICS=("Mathematics" "List" "Recursion" "Sorting" "Searching" "Hashing")
 
-          # 3. Loop through topics and update README
+          # 3. Loop through topics
           for TOPIC in "${TOPICS[@]}"; do
             if [ -d "$TOPIC" ]; then
-              COUNT=$(git ls-files "$TOPIC/" | wc -l)
-              # Updates the number between the specific topic tags
+              # Use find to count files physically present in the folder
+              COUNT=$(find "$TOPIC" -type f | wc -l)
               sed -i "s/<!-- $TOPIC -->.*<!-- END -->/<!-- $TOPIC -->$COUNT<!-- END -->/" README.md
             fi
           done
