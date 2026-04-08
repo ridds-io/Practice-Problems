@@ -7,7 +7,7 @@ A collection of all the Python practice problems I've solved 💫
 > Total number of problems solved so far: <!-- TOTAL -->1<!-- TOTAL_END -->
 
 \
-Topic-wise Question Count ->
+Topic-wise ->
 
 \
 Mathematics: <!-- Mathematics -->1<!-- END --> \
