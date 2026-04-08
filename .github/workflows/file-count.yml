@@ -2,11 +2,13 @@ name: Update File Count
 on:
   push:
     branches: [main]
+permissions:
+  contents: write
 jobs:
   update-readme:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Count Files
