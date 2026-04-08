@@ -1,6 +1,12 @@
 name: Update Stats
-on: [push]
-
+on:
+  push:
+    branches:
+      - main  
+    paths:
+      - '**/*.py'        # Runs if any Python file anywhere is changed
+      - '!README.md'     # Don't run if ONLY the README is changed
+      
 permissions:
   contents: write
 
