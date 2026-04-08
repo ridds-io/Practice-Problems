@@ -6,8 +6,6 @@ A collection of all the Python practice problems I've solved 💫
 > [!IMPORTANT]
 > Total number of problems solved so far: <!-- TOTAL -->1<!-- TOTAL_END -->
 
-\
-Topic-wise ->
 
 \
 Mathematics: <!-- Mathematics -->1<!-- END --> \
