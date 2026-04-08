@@ -4,10 +4,10 @@ A collection of all the Python practice problems I've solved 💫
 <br>
 
 > [!IMPORTANT]
-> Total number of problems solved so far: <!-- TOTAL -->6<!-- TOTAL_END -->
+> Total number of problems solved so far: <!-- TOTAL -->7<!-- TOTAL_END -->
 
 \
-Mathematics: <!-- Mathematics -->6<!-- END --> \
+Mathematics: <!-- Mathematics -->7<!-- END --> \
 List: <!-- List -->0<!-- END --> \
 Recursion: <!-- Recursion -->0<!-- END --> \
 Sorting: <!-- Sorting -->0<!-- END --> \
