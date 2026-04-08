@@ -1,24 +1,34 @@
-name: Update File Count
-on:
-  push:
-    branches: [main]
+name: Update Stats
+on: [push]
+
 permissions:
   contents: write
+
 jobs:
-  update-readme:
+  update-stats:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      
+      - name: Calculate and Update
+        run: |
+          # 1. Calculate Total (Excluding README, .github, and hidden files)
+          TOTAL=$(git ls-files | grep -v -e "README.md" -e ".github/" -e "^\." | wc -l)
+          sed -i "s/<!-- TOTAL -->.*<!-- TOTAL_END -->/<!-- TOTAL -->$TOTAL<!-- TOTAL_END -->/" README.md
+
+          # 2. List of topics (Folder names)
+          TOPICS=("Mathematics" "List" "Recursion" "Sorting" "Searching" "Hashing")
+
+          # 3. Loop through topics and update README
+          for TOPIC in "${TOPICS[@]}"; do
+            if [ -d "$TOPIC" ]; then
+              COUNT=$(git ls-files "$TOPIC/" | wc -l)
+              # Updates the number between the specific topic tags
+              sed -i "s/<!-- $TOPIC -->.*<!-- END -->/<!-- $TOPIC -->$COUNT<!-- END -->/" README.md
+            fi
+          done
+          
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          fetch-depth: 0
-      - name: Count Files
-        run: |
-          # Count all files, excluding .github and .git
-          FILE_COUNT=$(find . -not -path '*/.*' | wc -l)
-          sed -i "s/<!-- FILE_COUNT_START -->.*<!-- FILE_COUNT_END -->/<!-- FILE_COUNT_START -->$FILE_COUNT<!-- FILE_COUNT_END -->/g" README.md
-      - name: Commit and Push
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git commit -m "Update file count" README.md || exit 0
-          git push
+          commit_message: "docs: update problem counts [skip ci]"
