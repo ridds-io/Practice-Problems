@@ -27,6 +27,7 @@ jobs:
               sed -i "s/<!-- $TOPIC -->.*<!-- END -->/<!-- $TOPIC -->$COUNT<!-- END -->/" README.md
             fi
           done
+          git add README.md  # Manually stage the change
           
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
