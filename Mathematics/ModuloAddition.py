@@ -19,3 +19,8 @@ Constraints:
 class Solution:
     def sumUnderModulo(self, a, b, M):
         return (a + b) % M
+
+    # Modular Multiplication
+    def modmul(self, a, b, M):
+        return (a * b) % M
+        
